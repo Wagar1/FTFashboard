@@ -1,4 +1,14 @@
 import DashboardComponent from "./DashboardComponent";
+import useStore from "../../stores/useStore";
+import shallow from "zustand/shallow";
+import { useEffect, useState } from "react";
+
+const getState = (state) => [
+  state.requests,
+  state.getRequests,
+  state.auth,
+  state.ticket,
+];
 
 const data = [
   {
@@ -19,8 +29,41 @@ const data = [
 ];
 
 const Dashboard = () => {
+  const [requests, getRequests, auth, ticket] = useStore(getState, shallow);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const temp = [];
+
+    for (const request of requests) {
+      temp.push({
+        id: crypto.randomUUID(),
+        user: request.owner,
+        date: "12/12/2022",
+        workId: request.workId,
+        cid: request.cid,
+      });
+    }
+
+    setData(temp);
+  }, [requests]);
+
+  const getFromDB = async () => {
+    await auth();
+    await getRequests();
+  };
+
+  useEffect(() => {
+    getFromDB();
+  }, []);
+
+  const handleNavigateEdit = (workId) => {
+    window.location.href = `${window.mainUrl}/editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=${cid}&workId=${workId}`;
+  };
+
   const args = {
     data,
+    navigateEdit: handleNavigateEdit,
   };
 
   return (
