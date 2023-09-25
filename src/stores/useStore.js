@@ -19,7 +19,9 @@ const handleGetRequests = async (set, get) => {
 
     const requestUrl =
       window.mainUrl +
-      `/api/v1/nodes/${225724915}/output?format=json&userId=131170325`;
+      `/api/v1/nodes/${225724915}/output?format=json&userId=${
+        window.wrURLs.currentUserId
+      }`;
 
     const response = await fetch(requestUrl, requestOptions);
 
