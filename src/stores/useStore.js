@@ -20,7 +20,7 @@ const handleGetRequests = async (set, get) => {
     const requestUrl =
       window.mainUrl +
       `/api/v1/nodes/${225724915}/output?format=json&userId=${
-        window.wrURLs.currentUserId
+        window.currentUserId
       }`;
 
     const response = await fetch(requestUrl, requestOptions);
