@@ -6,19 +6,16 @@ const navigateEdit = (workId, cid) => {
 
 const columns = [
   {
-    name: "User",
-    selector: (row) => row.user,
+    name: "Performer",
+    selector: (row) => row.performer,
   },
   {
-    name: "Date",
-    selector: (row) => row.date,
+    name: "Step initiated at",
+    selector: (row) => row.initiatedat,
   },
   {
-    name: "Changes",
-  },
-  {
-    name: "Workflow",
-    selector: (row) => row.workId,
+    name: "Step created at",
+    selector: (row) => row.createdat,
   },
   {
     name: "Action",
@@ -34,18 +31,22 @@ const columns = [
   },
 ];
 
-const DashboardComponent = ({ data, navigateEdit }) => {
+const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
   return (
     <div className="col-12 mt-2">
       <h4>Müraciətlər</h4>
       <div className="row">
         <div className="col-6">
-          <DataTable
-            columns={columns}
-            data={data}
-            onRowClicked={navigateEdit}
-            dense
-          />
+          {isLoading ? (
+            <p>Loading</p>
+          ) : (
+            <DataTable
+              columns={columns}
+              data={data}
+              onRowClicked={navigateEdit}
+              dense
+            />
+          )}
         </div>
       </div>
     </div>

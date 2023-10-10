@@ -8,6 +8,7 @@ const getState = (state) => [
   state.getRequests,
   state.auth,
   state.ticket,
+  state.isLoading,
 ];
 
 const data = [
@@ -29,7 +30,10 @@ const data = [
 ];
 
 const Dashboard = () => {
-  const [requests, getRequests, auth, ticket] = useStore(getState, shallow);
+  const [requests, getRequests, auth, ticket, isLoading] = useStore(
+    getState,
+    shallow
+  );
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -38,10 +42,12 @@ const Dashboard = () => {
     for (const request of requests) {
       temp.push({
         id: crypto.randomUUID(),
-        user: request.owner,
-        date: "12/12/2022",
+        performer: request.performer,
+        createdat: request.createdat,
+        initiatedat: request.initiatedat,
         workId: request.workId,
         cid: request.cid,
+        title: request.title,
       });
     }
 
@@ -64,6 +70,7 @@ const Dashboard = () => {
   const args = {
     data,
     navigateEdit: handleNavigateEdit,
+    isLoading,
   };
 
   return (

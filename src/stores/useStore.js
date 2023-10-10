@@ -32,6 +32,7 @@ const handleGetRequests = async (set, get) => {
     console.log(data);
     set({
       requests: data,
+      isLoading: false,
     });
   } catch (error) {
     console.log(error);
@@ -42,6 +43,8 @@ const store = (set, get) => ({
   ...createAuth(set, get),
   requests: [],
   getRequests: () => handleGetRequests(set, get),
+  isLoading: true,
+  setIsLoading: (value) => set({ isLoading: value }),
 });
 
 const useStore = create(devtools(store));
