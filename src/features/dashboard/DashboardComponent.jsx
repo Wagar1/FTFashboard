@@ -10,8 +10,8 @@ const columns = [
     selector: (row) => row.performer,
   },
   {
-    name: "Step initiated at",
-    selector: (row) => row.initiatedat,
+    name: "Company name",
+    selector: (row) => row.companyName,
   },
   {
     name: "Step created at",

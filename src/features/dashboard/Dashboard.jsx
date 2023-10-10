@@ -48,6 +48,7 @@ const Dashboard = () => {
         workId: request.workId,
         cid: request.cid,
         title: request.title,
+        companyName: request.companyName,
       });
     }
 
