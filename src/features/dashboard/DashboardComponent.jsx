@@ -33,23 +33,20 @@ const columns = [
 
 const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
   return (
-    <div className="col-12 mt-2">
+    <main>
       <h4>Müraciətlər</h4>
-      <div className="row">
-        <div className="col-6">
-          {isLoading ? (
-            <p>Loading</p>
-          ) : (
-            <DataTable
-              columns={columns}
-              data={data}
-              onRowClicked={navigateEdit}
-              dense
-            />
-          )}
-        </div>
-      </div>
-    </div>
+
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <DataTable
+          columns={columns}
+          data={data}
+          onRowClicked={navigateEdit}
+          dense
+        />
+      )}
+    </main>
   );
 };
 

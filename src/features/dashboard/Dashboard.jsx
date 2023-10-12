@@ -2,6 +2,7 @@ import DashboardComponent from "./DashboardComponent";
 import useStore from "../../stores/useStore";
 import shallow from "zustand/shallow";
 import { useEffect, useState } from "react";
+import { Fragment } from "react";
 
 const getState = (state) => [
   state.requests,
@@ -75,11 +76,9 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <DashboardComponent {...args} />
-      </div>
-    </div>
+    <Fragment>
+      <DashboardComponent {...args} />
+    </Fragment>
   );
 };
 
