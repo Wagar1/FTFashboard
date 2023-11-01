@@ -19,7 +19,7 @@ const handleGetRequests = async (set, get) => {
 
     const requestUrl =
       window.mainUrl +
-      `/api/v1/nodes/${225724915}/output?format=json&userId=${
+      `/api/v1/nodes/${window.wrURLs.getAssignedRequests}/output?format=json&userId=${
         window.currentUserId
       }`;
 

@@ -1,4 +1,6 @@
 import DataTable from "react-data-table-component";
+import Loader from "../../components/Loader";
+import Button from "../../components/Button";
 
 const navigateEdit = (workId, cid) => {
   window.location.href = `${window.mainUrl}/editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=${cid}&workId=${workId}`;
@@ -6,46 +8,41 @@ const navigateEdit = (workId, cid) => {
 
 const columns = [
   {
-    name: "Performer",
+    name: "Müraciətçi",
     selector: (row) => row.performer,
   },
   {
-    name: "Company name",
+    name: "Şirkətin adı",
     selector: (row) => row.companyName,
   },
   {
-    name: "Step created at",
+    name: "Müraciət tarixi",
     selector: (row) => row.createdat,
   },
   {
-    name: "Action",
+    name: "Müraciətə baxış",
     button: true,
-    cell: (row) => (
-      <button
-        className="btn btn-secondary"
+    cell: (row) => <Button
+        label="Göstər"
         onClick={() => navigateEdit(row.workId, row.cid)}
-      >
-        View
-      </button>
-    ),
-  },
+      />
+    ,
+  }
 ];
 
 const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
   return (
     <main>
-      <h4>Müraciətlər</h4>
+      <h1>Müraciətlər</h1>
 
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
         <DataTable
+          progressComponent={<Loader />}
+          progressPending={isLoading}
           columns={columns}
           data={data}
           onRowClicked={navigateEdit}
           dense
         />
-      )}
     </main>
   );
 };
