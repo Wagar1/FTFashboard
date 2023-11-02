@@ -10,6 +10,9 @@ const getState = (state) => [
   state.auth,
   state.ticket,
   state.isLoading,
+  state.getKIM,
+  state.setCurrentRole,
+  state.setIsLoading,
 ];
 
 const data = [
@@ -31,10 +34,16 @@ const data = [
 ];
 
 const Dashboard = () => {
-  const [requests, getRequests, auth, ticket, isLoading] = useStore(
-    getState,
-    shallow
-  );
+  const [
+    requests,
+    getRequests,
+    auth,
+    ticket,
+    isLoading,
+    getKIM,
+    setCurrentRole,
+    setIsLoading,
+  ] = useStore(getState, shallow);
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -57,8 +66,11 @@ const Dashboard = () => {
   }, [requests]);
 
   const getFromDB = async () => {
+    setIsLoading(true);
     await auth();
     await getRequests();
+    await getKIM();
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -73,6 +85,7 @@ const Dashboard = () => {
     data,
     navigateEdit: handleNavigateEdit,
     isLoading,
+    setCurrentRole,
   };
 
   return (

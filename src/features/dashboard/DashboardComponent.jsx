@@ -22,27 +22,35 @@ const columns = [
   {
     name: "Müraciətə baxış",
     button: true,
-    cell: (row) => <Button
+    cell: (row) => (
+      <Button
         label="Göstər"
         onClick={() => navigateEdit(row.workId, row.cid)}
       />
-    ,
-  }
+    ),
+  },
 ];
 
-const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
+const DashboardComponent = ({
+  data,
+  navigateEdit,
+  isLoading,
+  setCurrentRole,
+}) => {
   return (
     <main>
+      <div className="mb-4">
+        <Button label="⬅ Geri" onClick={() => setCurrentRole("")} />
+      </div>
       <h1>Müraciətlər</h1>
-
-        <DataTable
-          progressComponent={<Loader />}
-          progressPending={isLoading}
-          columns={columns}
-          data={data}
-          onRowClicked={navigateEdit}
-          dense
-        />
+      <DataTable
+        progressComponent={<Loader />}
+        progressPending={isLoading}
+        columns={columns}
+        data={data}
+        onRowClicked={navigateEdit}
+        dense
+      />
     </main>
   );
 };

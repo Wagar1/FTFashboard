@@ -120,7 +120,6 @@ main {
   margin-top: 15px;
 }
 
-
 .view__btn {
   padding: 6px 12px;
   font-size: 16px;
@@ -130,5 +129,44 @@ main {
   background-color: rgb(7, 7, 255);
   color: #fff;
   transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.landing-container {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  width: 55%;
+  height: 50vh;
+  margin: 0 auto;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+}
+
+.container-header {
+  color: #010101;
+  margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.button-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.div-button {
+  width: 200px;
+  padding: 16px 8px;
+  font-size: 18px;
+  font-family: inherit;
+  color: #f1f1f1;
+  background-color: blue;
+  border-radius: 5px;
+  border: none;
   cursor: pointer;
 }
