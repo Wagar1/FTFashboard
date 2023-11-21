@@ -7,8 +7,6 @@ import { Fragment } from "react";
 const getState = (state) => [
   state.requests,
   state.getRequests,
-  state.auth,
-  state.ticket,
   state.isLoading,
   state.getKIM,
   state.setCurrentRole,
