@@ -1,14 +1,13 @@
 import "./App.css";
-import Dashboard from "./features/dashboard/Dashboard";
-import LandingPage from "./components/LandingPage";
-import shallow from "zustand/shallow";
-import useStore from "./stores/useStore";
-
-const getState = (state) => [state.currentRole];
+import AppProvider from "./providers/AppProvider";
+import AppRoutes from "./routers/AppRoutes";
 
 function App() {
-  const [currentRole] = useStore(getState, shallow);
-  return <>{currentRole ? <Dashboard /> : <LandingPage />}</>;
+  return (
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
+  );
 }
 
 export default App;

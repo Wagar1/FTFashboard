@@ -1,10 +1,12 @@
 import shallow from "zustand/shallow";
 import useStore from "../stores/useStore";
+import { useNavigate } from "react-router-dom";
 
 const getState = (state) => [state.setCurrentRole];
 
 const LandingPage = () => {
   const [setCurrentRole] = useStore(getState, shallow);
+  const navigate = useNavigate();
   const goTo = (menu) => {
     if (menu === 0) {
       setCurrentRole("KIM");
@@ -13,6 +15,13 @@ const LandingPage = () => {
     } else if (menu === 2) {
       setCurrentRole("MANAGER");
     }
+    navigate(
+      window.baseUrl +
+        "app/dashboard" +
+        "?func=ll&objId=" +
+        window.currentWebreportId +
+        "&objAction=RunReport"
+    );
   };
   return (
     <main>

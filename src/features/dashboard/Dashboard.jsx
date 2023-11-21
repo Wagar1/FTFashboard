@@ -37,8 +37,6 @@ const Dashboard = () => {
   const [
     requests,
     getRequests,
-    auth,
-    ticket,
     isLoading,
     getKIM,
     setCurrentRole,
@@ -67,7 +65,6 @@ const Dashboard = () => {
 
   const getFromDB = async () => {
     setIsLoading(true);
-    await auth();
     await getRequests();
     await getKIM();
     setIsLoading(false);
