@@ -31,7 +31,7 @@ const CompanyList = () => {
   const navigateToCompanyEdit = (cid) => {
     window.location.href =
       window.baseUrl +
-      "/editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
+      "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
       cid;
   };
   const navigateToLanding = () => {
