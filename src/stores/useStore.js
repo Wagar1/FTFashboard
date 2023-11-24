@@ -65,6 +65,7 @@ const handleGetKIM = async (set, get) => {
     set({
       kimID: data.OPENTEXTID,
     });
+    return data.OPENTEXTID;
   } catch (error) {
     console.log(error);
   }
@@ -99,6 +100,33 @@ const handleGetCompanyList = async (set, get) => {
   }
 };
 
+const handleShowKIM = async (set, get, id) => {
+  try {
+    const ticket = get().ticket;
+    const myHeaders = new Headers();
+    myHeaders.append("OTCSTicket", ticket);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+    const requestUrl =
+      window.mainUrl +
+      `/api/v1/nodes/${window.wrURLs.showKIM}/output?format=json&groupid=${id}`;
+
+    const response = await fetch(requestUrl, requestOptions);
+
+    const json = await response.json();
+    const data = JSON.parse(json.data);
+    set({
+      isKIM: data.InGroup,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const store = (set, get) => ({
   ...createAuth(set, get),
   currentRole: "",
@@ -115,6 +143,8 @@ const store = (set, get) => ({
   showLanding: (value) => set({ isLanding: value }),
   companyList: [],
   getCompanyList: async () => await handleGetCompanyList(set, get),
+  isKIM: false,
+  showKIM: async (id) => await handleShowKIM(set, get, id),
 });
 
 const useStore = create(devtools(store));

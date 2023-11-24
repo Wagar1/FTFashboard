@@ -9,25 +9,22 @@ const navigateEdit = (workId, cid) => {
 
 const columns = [
   {
-    name: "Müraciətçi",
+    name: "Applicant",
     selector: (row) => row.performer,
   },
   {
-    name: "Şirkətin adı",
+    name: "Company name",
     selector: (row) => row.companyName,
   },
   {
-    name: "Müraciət tarixi",
+    name: "Apply date",
     selector: (row) => row.createdat,
   },
   {
-    name: "Müraciətə baxış",
+    name: "View application",
     button: true,
     cell: (row) => (
-      <Button
-        label="Göstər"
-        onClick={() => navigateEdit(row.workId, row.cid)}
-      />
+      <Button label="Show" onClick={() => navigateEdit(row.workId, row.cid)} />
     ),
   },
 ];
@@ -46,9 +43,9 @@ const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
   return (
     <main>
       <div className="mb-4">
-        <Button label="⬅ Geri" onClick={() => handleNavigateReturn()} />
+        <Button label="⬅ Return" onClick={() => handleNavigateReturn()} />
       </div>
-      <h1>Müraciətlər</h1>
+      <h1>Appeals</h1>
       <DataTable
         progressComponent={<Loader />}
         progressPending={isLoading}

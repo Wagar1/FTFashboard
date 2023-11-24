@@ -13,14 +13,14 @@ const getState = (state) => [
 
 const columns = (navigateToLanding) => [
   {
-    name: "Şirkətin adı",
+    name: "Company name",
     selector: (row) => row.COMPANYNAME,
   },
   {
-    name: "Baxış",
+    name: "View",
     button: true,
     cell: (row) => (
-      <Button label="Dəyiş" onClick={() => navigateToLanding(row.CID)} />
+      <Button label="Change" onClick={() => navigateToLanding(row.CID)} />
     ),
   },
 ];
@@ -47,14 +47,11 @@ const CompanyList = () => {
     <main>
       <div className="row">
         <div className="col-6">
-          <h1>Şirkətlərin siyahısı</h1>
+          <h1>List of companies</h1>
         </div>
         <div className="col-6">
           <div className="float-end">
-            <Button
-              label="Müraciətlərə keçid"
-              onClick={navigateToLanding}
-            ></Button>
+            <Button label="Go to appeals" onClick={navigateToLanding}></Button>
           </div>
         </div>
       </div>

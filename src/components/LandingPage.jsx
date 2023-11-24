@@ -1,11 +1,17 @@
 import shallow from "zustand/shallow";
 import useStore from "../stores/useStore";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-const getState = (state) => [state.setCurrentRole];
+const getState = (state) => [
+  state.setCurrentRole,
+  state.isKIM,
+  state.getKIM,
+  state.showKIM,
+];
 
 const LandingPage = () => {
-  const [setCurrentRole] = useStore(getState, shallow);
+  const [setCurrentRole, isKIM, getKIM, showKIM] = useStore(getState, shallow);
   const navigate = useNavigate();
   const goTo = (menu) => {
     if (menu === 0) {
@@ -23,21 +29,33 @@ const LandingPage = () => {
         "&objAction=RunReport"
     );
   };
+  const getFromDB = async () => {
+    const kimID = await getKIM();
+    await showKIM(kimID);
+  };
+
+  useEffect(() => {
+    getFromDB();
+  }, []);
   return (
     <main>
       <div className="landing-container">
-        <h1 className="container-header">Daxil Olun</h1>
+        {/* <h1 className="container-header">Daxil Olun</h1> */}
         <div className="button-container">
-          <div className="div div-1">
-            <button
-              className="div-button"
-              onClick={() => {
-                goTo(0);
-              }}
-            >
-              KIM rolunda
-            </button>
-          </div>
+          {isKIM ? (
+            <div className="div div-1">
+              <button
+                className="div-button"
+                onClick={() => {
+                  goTo(0);
+                }}
+              >
+                In KIM
+              </button>
+            </div>
+          ) : (
+            <></>
+          )}
           <div className="div div-2">
             <button
               className="div-button"
@@ -45,7 +63,7 @@ const LandingPage = () => {
                 goTo(1);
               }}
             >
-              Müraciətçi rolunda
+              In Applicant
             </button>
           </div>
           <div className="div div-2">
@@ -55,7 +73,7 @@ const LandingPage = () => {
                 goTo(2);
               }}
             >
-              Təsdiqedici rolunda
+              in Approver
             </button>
           </div>
         </div>
