@@ -2,6 +2,7 @@ import shallow from "zustand/shallow";
 import useStore from "../stores/useStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Button from "./Button";
 
 const getState = (state) => [
   state.setCurrentRole,
@@ -37,8 +38,21 @@ const LandingPage = () => {
   useEffect(() => {
     getFromDB();
   }, []);
+
+  const handleNavigateReturn = function () {
+    navigate(
+      window.baseUrl +
+        "app/clist" +
+        "?func=ll&objId=" +
+        window.currentWebreportId +
+        "&objAction=RunReport"
+    );
+  };
   return (
     <main>
+      <h1>
+        <Button label="⬅ Return" onClick={() => handleNavigateReturn()} />
+      </h1>
       <div className="landing-container">
         {/* <h1 className="container-header">Daxil Olun</h1> */}
         <div className="button-container">
