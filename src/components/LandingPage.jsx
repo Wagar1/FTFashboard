@@ -64,7 +64,7 @@ const LandingPage = () => {
                   goTo(0);
                 }}
               >
-                In KIM
+                CGD
               </button>
             </div>
           ) : (
@@ -77,7 +77,7 @@ const LandingPage = () => {
                 goTo(1);
               }}
             >
-              In Applicant
+              Applicant
             </button>
           </div>
           <div className="div div-2">
@@ -87,7 +87,7 @@ const LandingPage = () => {
                 goTo(2);
               }}
             >
-              in Approver
+              Approver
             </button>
           </div>
         </div>
