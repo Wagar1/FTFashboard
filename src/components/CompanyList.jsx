@@ -51,7 +51,7 @@ const CompanyList = () => {
         </div>
         <div className="col-6">
           <div className="float-end">
-            <Button label="Go to appeals" onClick={navigateToLanding}></Button>
+            <Button label="Go to requests" onClick={navigateToLanding}></Button>
           </div>
         </div>
       </div>

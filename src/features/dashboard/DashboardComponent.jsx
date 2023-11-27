@@ -45,7 +45,7 @@ const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
       <div className="mb-4">
         <Button label="⬅ Return" onClick={() => handleNavigateReturn()} />
       </div>
-      <h1>Appeals</h1>
+      <h1>Requests</h1>
       <DataTable
         progressComponent={<Loader />}
         progressPending={isLoading}

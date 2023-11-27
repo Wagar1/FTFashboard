@@ -9,10 +9,13 @@ const getState = (state) => [
   state.isKIM,
   state.getKIM,
   state.showKIM,
+  state.setIsLoading,
+  state.isLoading,
 ];
 
 const LandingPage = () => {
-  const [setCurrentRole, isKIM, getKIM, showKIM] = useStore(getState, shallow);
+  const [setCurrentRole, isKIM, getKIM, showKIM, setIsLoading, isLoading] =
+    useStore(getState, shallow);
   const navigate = useNavigate();
   const goTo = (menu) => {
     if (menu === 0) {
@@ -31,8 +34,14 @@ const LandingPage = () => {
     );
   };
   const getFromDB = async () => {
-    const kimID = await getKIM();
-    await showKIM(kimID);
+    setIsLoading(true);
+    try {
+      const kimID = await getKIM();
+      await showKIM(kimID);
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -56,40 +65,47 @@ const LandingPage = () => {
       <div className="landing-container">
         {/* <h1 className="container-header">Daxil Olun</h1> */}
         <div className="button-container">
-          {isKIM ? (
-            <div className="div div-1">
-              <button
-                className="div-button"
-                onClick={() => {
-                  goTo(0);
-                }}
-              >
-                CGD
-              </button>
-            </div>
-          ) : (
+          {isLoading ? (
             <></>
+          ) : (
+            <>
+              {" "}
+              {isKIM ? (
+                <div className="div div-1">
+                  <button
+                    className="div-button"
+                    onClick={() => {
+                      goTo(0);
+                    }}
+                  >
+                    CGD
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
+              <div className="div div-2">
+                <button
+                  className="div-button"
+                  onClick={() => {
+                    goTo(1);
+                  }}
+                >
+                  Applicant
+                </button>
+              </div>
+              <div className="div div-2">
+                <button
+                  className="div-button"
+                  onClick={() => {
+                    goTo(2);
+                  }}
+                >
+                  Approver
+                </button>
+              </div>
+            </>
           )}
-          <div className="div div-2">
-            <button
-              className="div-button"
-              onClick={() => {
-                goTo(1);
-              }}
-            >
-              Applicant
-            </button>
-          </div>
-          <div className="div div-2">
-            <button
-              className="div-button"
-              onClick={() => {
-                goTo(2);
-              }}
-            >
-              Approver
-            </button>
-          </div>
         </div>
       </div>
     </main>
