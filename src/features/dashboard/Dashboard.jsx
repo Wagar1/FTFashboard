@@ -11,6 +11,7 @@ const getState = (state) => [
   state.getKIM,
   state.setCurrentRole,
   state.setIsLoading,
+  state.isKIM,
 ];
 
 const data = [
@@ -39,6 +40,7 @@ const Dashboard = () => {
     getKIM,
     setCurrentRole,
     setIsLoading,
+    isKIM,
   ] = useStore(getState, shallow);
   const [data, setData] = useState([]);
 
@@ -81,6 +83,7 @@ const Dashboard = () => {
     navigateEdit: handleNavigateEdit,
     isLoading,
     setCurrentRole,
+    isKIM,
   };
 
   return (

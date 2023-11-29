@@ -11,11 +11,23 @@ const getState = (state) => [
   state.showKIM,
   state.setIsLoading,
   state.isLoading,
+  state.showApprover,
+  state.getApprover,
+  state.isApprover,
 ];
 
 const LandingPage = () => {
-  const [setCurrentRole, isKIM, getKIM, showKIM, setIsLoading, isLoading] =
-    useStore(getState, shallow);
+  const [
+    setCurrentRole,
+    isKIM,
+    getKIM,
+    showKIM,
+    setIsLoading,
+    isLoading,
+    showApprover,
+    getApprover,
+    isApprover,
+  ] = useStore(getState, shallow);
   const navigate = useNavigate();
   const goTo = (menu) => {
     if (menu === 0) {
@@ -37,7 +49,15 @@ const LandingPage = () => {
     setIsLoading(true);
     try {
       const kimID = await getKIM();
-      await showKIM(kimID);
+      const isKIM = await showKIM(kimID);
+      const approverID = await getApprover();
+      const isApprover = await showApprover(approverID);
+      if (isApprover) {
+        goTo(2);
+      }
+      if (!isKIM && !isApprover) {
+        goTo(1);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -94,16 +114,20 @@ const LandingPage = () => {
                   Applicant
                 </button>
               </div>
-              <div className="div div-2">
-                <button
-                  className="div-button"
-                  onClick={() => {
-                    goTo(2);
-                  }}
-                >
-                  Approver
-                </button>
-              </div>
+              {isApprover || isKIM ? (
+                <div className="div div-2">
+                  <button
+                    className="div-button"
+                    onClick={() => {
+                      goTo(2);
+                    }}
+                  >
+                    Approver
+                  </button>
+                </div>
+              ) : (
+                <></>
+              )}
             </>
           )}
         </div>

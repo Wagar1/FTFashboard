@@ -29,16 +29,26 @@ const columns = [
   },
 ];
 
-const DashboardComponent = ({ data, navigateEdit, isLoading }) => {
+const DashboardComponent = ({ data, navigateEdit, isLoading, isKIM }) => {
   const navigate = useNavigate();
   const handleNavigateReturn = function () {
-    navigate(
-      window.baseUrl +
-        "app/landing" +
-        "?func=ll&objId=" +
-        window.currentWebreportId +
-        "&objAction=RunReport"
-    );
+    if (isKIM) {
+      navigate(
+        window.baseUrl +
+          "app/landing" +
+          "?func=ll&objId=" +
+          window.currentWebreportId +
+          "&objAction=RunReport"
+      );
+    } else {
+      navigate(
+        window.baseUrl +
+          "app/clist" +
+          "?func=ll&objId=" +
+          window.currentWebreportId +
+          "&objAction=RunReport"
+      );
+    }
   };
   return (
     <main>
