@@ -9,24 +9,39 @@ const getState = (state) => [
   state.setIsLoading,
   state.showLanding,
   state.companyList,
+  state.isApprover,
 ];
 
-const columns = (navigateToLanding) => [
-  {
-    name: "Company name",
-    selector: (row) => row.COMPANYNAME,
-  },
-  {
-    name: "View",
-    button: true,
-    cell: (row) => (
-      <Button label="Change" onClick={() => navigateToLanding(row.CID)} />
-    ),
-  },
-];
+let columns = (navigateToLanding, isApprover) => {
+  if (isApprover)
+    return [
+      {
+        name: "Company name",
+        selector: (row) => row.COMPANYNAME,
+      },
+    ];
+  else {
+    return [
+      {
+        name: "Company name",
+        selector: (row) => row.COMPANYNAME,
+      },
+      {
+        name: "View",
+        button: true,
+        cell: (row) => (
+          <Button label="Change" onClick={() => navigateToLanding(row.CID)} />
+        ),
+      },
+    ];
+  }
+};
 
 const CompanyList = () => {
-  const [isLoading, showLanding, companyList] = useStore(getState, shallow);
+  const [isLoading, showLanding, companyList, isApprover] = useStore(
+    getState,
+    shallow
+  );
   const navigate = useNavigate();
   const navigateToCompanyEdit = (cid) => {
     window.location.href =
@@ -58,7 +73,7 @@ const CompanyList = () => {
       <DataTable
         //progressComponent={<Loader />}
         //progressPending={isLoading}
-        columns={columns(navigateToCompanyEdit)}
+        columns={columns(navigateToCompanyEdit, isApprover)}
         data={companyList}
         dense
       />

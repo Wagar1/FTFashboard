@@ -14,24 +14,6 @@ const getState = (state) => [
   state.isKIM,
 ];
 
-const data = [
-  {
-    id: 1,
-    user: "Vugar",
-    date: "9/21/2023",
-  },
-  {
-    id: 2,
-    user: "Vusal",
-    date: "9/21/2023",
-  },
-  {
-    id: 3,
-    user: "Ilqar",
-    date: "9/21/2023",
-  },
-];
-
 const Dashboard = () => {
   const [
     requests,
