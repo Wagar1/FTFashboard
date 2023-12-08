@@ -6,8 +6,8 @@ const handleAuth = async (set, get) => {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
-    urlencoded.append("username", "test1"); //"Vugar.i.eyvazov");
-    urlencoded.append("password", "Cic12345678"); //"init123Q1");
+    urlencoded.append("username", "Vugar.i.eyvazov"); //"Vugar.i.eyvazov");
+    urlencoded.append("password", "init123Q1"); //"init123Q1");
 
     const requestOptions = {
       method: "POST",
