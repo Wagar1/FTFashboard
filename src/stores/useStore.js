@@ -23,8 +23,8 @@ const handleGetRequests = async (set, get) => {
     } else if (currentRole === "MANAGER") {
       requestUrl += `&userId=${window.currentUserId}&isManager=true`;
     } else if (currentRole === "KIM") {
-      const kimID = get().kimID;
-      requestUrl += `&userId=${kimID}&isKIM=true`;
+      //const kimID = get().kimID;
+      requestUrl += `&userId=${window.currentUserId}&isKIM=true`;
     }
     const response = await fetch(requestUrl, requestOptions);
 
