@@ -205,7 +205,7 @@ const store = (set, get) => ({
   companyList: [],
   getCompanyList: async () => await handleGetCompanyList(set, get),
   isKIM: false,
-  isApprover: false,
+  isApprover: true,
   showKIM: async (id) => await handleShowKIM(set, get, id),
   getApprover: async () => await handleGETApprover(set, get),
   showApprover: async (id) => await handleIsApprover(set, get, id),
