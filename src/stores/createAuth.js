@@ -7,7 +7,7 @@ const handleAuth = async (set, get) => {
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("username", "Vugar.i.eyvazov"); //"Vugar.i.eyvazov");
-    urlencoded.append("password", "init123Q1"); //"init123Q1");
+    urlencoded.append("password", "init123Q12"); //"init123Q1");
 
     const requestOptions = {
       method: "POST",
