@@ -58,9 +58,9 @@ const LandingPage = () => {
       if (!isKIM && !isApprover) {
         goTo(1);
       }
-      if (isKIM) {
-        goTo(0);
-      }
+      // if (isKIM) {
+      //   goTo(0);
+      // }
     } catch (error) {
       console.error(error);
     }
