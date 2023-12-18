@@ -48,15 +48,18 @@ const LandingPage = () => {
   const getFromDB = async () => {
     setIsLoading(true);
     try {
-      const kimID = await getKIM();
-      const isKIM = await showKIM(kimID);
       const approverID = await getApprover();
       const isApprover = await showApprover(approverID);
-      if (isApprover) {
+      const kimID = await getKIM();
+      const isKIM = await showKIM(kimID);
+      if (isApprover && !isKIM) {
         goTo(2);
       }
       if (!isKIM && !isApprover) {
         goTo(1);
+      }
+      if (isKIM) {
+        goTo(0);
       }
     } catch (error) {
       console.error(error);
