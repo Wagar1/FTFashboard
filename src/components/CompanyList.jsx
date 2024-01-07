@@ -4,12 +4,14 @@ import useStore from "../stores/useStore";
 import { shallow } from "zustand/shallow";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const getState = (state) => [
   state.setIsLoading,
   state.showLanding,
   state.companyList,
   state.isApprover,
+  state.getChanges,
 ];
 
 let columns = (navigateToLanding, isApprover) => {
@@ -38,12 +40,18 @@ let columns = (navigateToLanding, isApprover) => {
 };
 
 const CompanyList = () => {
-  const [isLoading, showLanding, companyList, isApprover] = useStore(
-    getState,
-    shallow
-  );
+  const [isLoading, showLanding, companyList, isApprover, getChanges] =
+    useStore(getState, shallow);
   const navigate = useNavigate();
-  const navigateToCompanyEdit = (cid) => {
+  const navigateToCompanyEdit = async (cid) => {
+    const changes = await getChanges(cid);
+    if (changes.length > 0) {
+      Swal.fire({
+        icon: "warning",
+        text: "You cannot change the company twice",
+      });
+      return;
+    }
     window.location.href =
       window.baseUrl +
       "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +

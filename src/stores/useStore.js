@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import createAuth from "./createAuth";
+import Swal from "sweetalert2";
 
 const handleGetRequests = async (set, get) => {
   try {
@@ -187,6 +188,35 @@ const handleIsApprover = async (set, get, id) => {
   }
 };
 
+const handleGetChanges = async (set, get, cid) => {
+  try {
+    const ticket = get().ticket;
+    const myHeaders = new Headers();
+    myHeaders.append("OTCSTicket", ticket);
+
+    const requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    const requestUrl =
+      window.mainUrl +
+      `/api/v1/nodes/${window.wrURLs.getChanges}/output?format=json&cid=${cid}&userId=${window.currentUserId}`;
+
+    const response = await fetch(requestUrl, requestOptions);
+
+    const json = await response.json();
+    const data = JSON.parse(json.data);
+    set({
+      changesToCurrentCID: data,
+    });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const store = (set, get) => ({
   ...createAuth(set, get),
   currentRole: "",
@@ -209,6 +239,7 @@ const store = (set, get) => ({
   showKIM: async (id) => await handleShowKIM(set, get, id),
   getApprover: async () => await handleGETApprover(set, get),
   showApprover: async (id) => await handleIsApprover(set, get, id),
+  getChanges: async (cid) => await handleGetChanges(set, get, cid),
 });
 
 const useStore = create(devtools(store));
