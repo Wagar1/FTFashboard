@@ -32,7 +32,11 @@ let columns = (navigateToLanding, isApprover) => {
         name: "View",
         button: true,
         cell: (row) => (
-          <Button label="Change" onClick={() => navigateToLanding(row.CID)} />
+          <Button
+            id={"btn-" + row.CID}
+            label="Change"
+            onClick={() => navigateToLanding(row.CID)}
+          />
         ),
       },
     ];
