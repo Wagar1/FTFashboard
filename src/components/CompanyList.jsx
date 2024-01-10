@@ -14,7 +14,7 @@ const getState = (state) => [
   state.getChanges,
 ];
 
-let columns = (navigateToLanding, isApprover) => {
+let columns = (navigateToLanding, isApprover, navigateToLandingTest) => {
   if (isApprover)
     return [
       {
@@ -32,11 +32,19 @@ let columns = (navigateToLanding, isApprover) => {
         name: "View",
         button: true,
         cell: (row) => (
-          <Button
-            id={"btn-" + row.CID}
-            label="Change"
-            onClick={() => navigateToLanding(row.CID)}
-          />
+          <>
+            <Button
+              id={"btn-" + row.CID}
+              label="Change"
+              onClick={() => navigateToLanding(row.CID)}
+            />
+            <Button
+              id={"btn-" + row.CID}
+              label="Change(For Test Purpose)"
+              style={{ marginLeft: "10px" }}
+              onClick={() => navigateToLandingTest(row.CID)}
+            />
+          </>
         ),
       },
     ];
@@ -56,6 +64,12 @@ const CompanyList = () => {
       });
       return;
     }
+    window.location.href =
+      window.baseUrl +
+      "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
+      cid;
+  };
+  const navigateToCompanyEditTest = async (cid) => {
     window.location.href =
       window.baseUrl +
       "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
@@ -85,7 +99,11 @@ const CompanyList = () => {
       <DataTable
         //progressComponent={<Loader />}
         //progressPending={isLoading}
-        columns={columns(navigateToCompanyEdit, isApprover)}
+        columns={columns(
+          navigateToCompanyEdit,
+          isApprover,
+          navigateToCompanyEditTest
+        )}
         data={companyList}
         dense
       />
