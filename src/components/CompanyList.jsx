@@ -29,7 +29,7 @@ let columns = (navigateToLanding, isApprover) => {
         selector: (row) => row.COMPANYNAME,
       },
       {
-        name: "View",
+        name: "Action",
         button: true,
         cell: (row) => (
           <>
@@ -91,16 +91,17 @@ const CompanyList = () => {
     <main>
       <div className="row">
         <div className="col-6">
-          <h1>
-            <Button
-              label="SOCAR DASHBOARD"
-              onClick={() => handleNavigationToSOCARDASHBOARD()}
-            />
-          </h1>
           <h1>List of companies</h1>
         </div>
         <div className="col-6">
           <div className="float-end">
+            <a
+              style={{ fontSize: "14px", marginRight: "10px" }}
+              href=""
+              onClick={() => handleNavigationToSOCARDASHBOARD()}
+            >
+              SOCAR DASHBOARD
+            </a>
             <Button label="Go to requests" onClick={navigateToLanding}></Button>
           </div>
         </div>
