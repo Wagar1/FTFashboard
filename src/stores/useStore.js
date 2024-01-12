@@ -207,7 +207,8 @@ const handleGetChanges = async (set, get, cid) => {
     const response = await fetch(requestUrl, requestOptions);
 
     const json = await response.json();
-    const data = JSON.parse(json.data);
+    const data = JSON.parse(json.data).result;
+    data.pop();
     set({
       changesToCurrentCID: data,
     });
