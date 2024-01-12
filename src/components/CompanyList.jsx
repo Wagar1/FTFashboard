@@ -14,7 +14,7 @@ const getState = (state) => [
   state.getChanges,
 ];
 
-let columns = (navigateToLanding, isApprover, navigateToLandingTest) => {
+let columns = (navigateToLanding, isApprover) => {
   if (isApprover)
     return [
       {
@@ -38,12 +38,12 @@ let columns = (navigateToLanding, isApprover, navigateToLandingTest) => {
               label="Change"
               onClick={() => navigateToLanding(row.CID)}
             />
-            <Button
+            {/* <Button
               id={"btn-" + row.CID}
               label="Change(For Test Purpose)"
               style={{ marginLeft: "10px" }}
               onClick={() => navigateToLandingTest(row.CID)}
-            />
+            /> */}
           </>
         ),
       },
@@ -84,10 +84,19 @@ const CompanyList = () => {
         "&objAction=RunReport"
     );
   };
+  const handleNavigationToSOCARDASHBOARD = () => {
+    window.location.href = window.mainUrl;
+  };
   return (
     <main>
       <div className="row">
         <div className="col-6">
+          <h1>
+            <Button
+              label="SOCAR DASHBOARD"
+              onClick={() => handleNavigationToSOCARDASHBOARD()}
+            />
+          </h1>
           <h1>List of companies</h1>
         </div>
         <div className="col-6">
@@ -101,8 +110,8 @@ const CompanyList = () => {
         //progressPending={isLoading}
         columns={columns(
           navigateToCompanyEdit,
-          isApprover,
-          navigateToCompanyEditTest
+          isApprover
+          //navigateToCompanyEditTest
         )}
         data={companyList}
         dense
