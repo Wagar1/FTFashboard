@@ -87,21 +87,39 @@ const CompanyList = () => {
   const handleNavigationToSOCARDASHBOARD = () => {
     window.location.href = window.mainUrl;
   };
+  const backToMyURL = () => {
+    if (window.previousURL) {
+      window.location.href = window.previousURL;
+    } else {
+      window.location.href = window.mainUrl;
+    }
+  };
   return (
     <main>
       <div className="row">
-        <div className="col-6">
+        <div className="col-6 d-flex align-items-center">
+          <span>
+            <button
+              className="btn btn-outline-secondary m-3"
+              onClick={backToMyURL}
+            >
+              &#129144;
+            </button>
+          </span>
           <h1>List of companies</h1>
         </div>
         <div className="col-6">
           <div className="float-end">
-            <a
-              style={{ fontSize: "14px", marginRight: "10px" }}
-              href=""
+            <span
+              style={{
+                fontSize: "14px",
+                marginRight: "10px",
+                cursor: "pointer",
+              }}
               onClick={() => handleNavigationToSOCARDASHBOARD()}
             >
               SOCAR DASHBOARD
-            </a>
+            </span>
             <Button label="Go to requests" onClick={navigateToLanding}></Button>
           </div>
         </div>
