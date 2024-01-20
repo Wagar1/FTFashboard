@@ -21,7 +21,7 @@ const columns = [
     selector: (row) => row.createdat,
   },
   {
-    name: "View application",
+    name: "Action",
     button: true,
     cell: (row) => (
       <Button label="Show" onClick={() => navigateEdit(row.workId, row.cid)} />
@@ -55,7 +55,7 @@ const DashboardComponent = ({ data, navigateEdit, isLoading, isKIM }) => {
       <div className="mb-4">
         <Button label="⬅ Return" onClick={() => handleNavigateReturn()} />
       </div>
-      <h1>Requests</h1>
+      {/* <h1>Family tree – Requests</h1> */}
       <DataTable
         progressComponent={<Loader />}
         progressPending={isLoading}

@@ -1,12 +1,9 @@
-const Button = ({ label, onClick }) => {
-    return (
-      <button
-        className="view__btn"
-        onClick={onClick}
-      >
-        {label}
-      </button>
-    );
-  };
-  
-  export default Button;
+const Button = ({ id, label, style, onClick }) => {
+  return (
+    <button id={id} style={style} className="view__btn" onClick={onClick}>
+      {label}
+    </button>
+  );
+};
+
+export default Button;

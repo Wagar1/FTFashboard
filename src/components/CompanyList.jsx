@@ -4,12 +4,14 @@ import useStore from "../stores/useStore";
 import { shallow } from "zustand/shallow";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const getState = (state) => [
   state.setIsLoading,
   state.showLanding,
   state.companyList,
   state.isApprover,
+  state.getChanges,
 ];
 
 let columns = (navigateToLanding, isApprover) => {
@@ -27,10 +29,22 @@ let columns = (navigateToLanding, isApprover) => {
         selector: (row) => row.COMPANYNAME,
       },
       {
-        name: "View",
+        name: "Action",
         button: true,
         cell: (row) => (
-          <Button label="Change" onClick={() => navigateToLanding(row.CID)} />
+          <>
+            <Button
+              id={"btn-" + row.CID}
+              label="Change"
+              onClick={() => navigateToLanding(row.CID)}
+            />
+            {/* <Button
+              id={"btn-" + row.CID}
+              label="Change(For Test Purpose)"
+              style={{ marginLeft: "10px" }}
+              onClick={() => navigateToLandingTest(row.CID)}
+            /> */}
+          </>
         ),
       },
     ];
@@ -38,12 +52,24 @@ let columns = (navigateToLanding, isApprover) => {
 };
 
 const CompanyList = () => {
-  const [isLoading, showLanding, companyList, isApprover] = useStore(
-    getState,
-    shallow
-  );
+  const [isLoading, showLanding, companyList, isApprover, getChanges] =
+    useStore(getState, shallow);
   const navigate = useNavigate();
-  const navigateToCompanyEdit = (cid) => {
+  const navigateToCompanyEdit = async (cid) => {
+    const changes = await getChanges(cid);
+    if (changes.length > 0) {
+      Swal.fire({
+        icon: "warning",
+        text: "You cannot change the company twice",
+      });
+      return;
+    }
+    window.location.href =
+      window.baseUrl +
+      "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
+      cid;
+  };
+  const navigateToCompanyEditTest = async (cid) => {
     window.location.href =
       window.baseUrl +
       "editapp/cd?func=ll&objId=224774940&objAction=RunReport&key=" +
@@ -58,14 +84,42 @@ const CompanyList = () => {
         "&objAction=RunReport"
     );
   };
+  const handleNavigationToSOCARDASHBOARD = () => {
+    window.location.href = window.mainUrl;
+  };
+  const backToMyURL = () => {
+    if (window.previousURL) {
+      window.location.href = window.previousURL;
+    } else {
+      window.location.href = window.mainUrl;
+    }
+  };
   return (
     <main>
       <div className="row">
-        <div className="col-6">
+        <div className="col-6 d-flex align-items-center">
+          <span>
+            <button
+              className="btn btn-outline-secondary m-3"
+              onClick={backToMyURL}
+            >
+              &#129144;
+            </button>
+          </span>
           <h1>List of companies</h1>
         </div>
         <div className="col-6">
           <div className="float-end">
+            <span
+              style={{
+                fontSize: "14px",
+                marginRight: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleNavigationToSOCARDASHBOARD()}
+            >
+              SOCAR DASHBOARD
+            </span>
             <Button label="Go to requests" onClick={navigateToLanding}></Button>
           </div>
         </div>
@@ -73,7 +127,11 @@ const CompanyList = () => {
       <DataTable
         //progressComponent={<Loader />}
         //progressPending={isLoading}
-        columns={columns(navigateToCompanyEdit, isApprover)}
+        columns={columns(
+          navigateToCompanyEdit,
+          isApprover
+          //navigateToCompanyEditTest
+        )}
         data={companyList}
         dense
       />
