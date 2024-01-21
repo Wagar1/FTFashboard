@@ -5,6 +5,7 @@ import { shallow } from "zustand/shallow";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const getState = (state) => [
   state.setIsLoading,
@@ -14,7 +15,7 @@ const getState = (state) => [
   state.getChanges,
 ];
 
-let columns = (navigateToLanding, isApprover) => {
+let columns = (navigateToLanding, isApprover, loading, cId) => {
   if (isApprover)
     return [
       {
@@ -36,6 +37,9 @@ let columns = (navigateToLanding, isApprover) => {
             <Button
               id={"btn-" + row.CID}
               label="Change"
+              loading={loading}
+              loadingId={cId}
+              className={"flex-one"}
               onClick={() => navigateToLanding(row.CID)}
             />
             {/* <Button
@@ -52,12 +56,18 @@ let columns = (navigateToLanding, isApprover) => {
 };
 
 const CompanyList = () => {
+  const [loading, setLoading] = useState(false);
+  const [cId, setCId] = useState(null);
   const [isLoading, showLanding, companyList, isApprover, getChanges] =
     useStore(getState, shallow);
   const navigate = useNavigate();
   const navigateToCompanyEdit = async (cid) => {
+    setLoading(true);
+    setCId(cid);
+
     const changes = await getChanges(cid);
     if (changes.length > 0) {
+      setLoading(false);
       Swal.fire({
         icon: "warning",
         text: "You cannot change the company twice",
@@ -129,7 +139,9 @@ const CompanyList = () => {
         //progressPending={isLoading}
         columns={columns(
           navigateToCompanyEdit,
-          isApprover
+          isApprover,
+          loading,
+          cId
           //navigateToCompanyEditTest
         )}
         data={companyList}
