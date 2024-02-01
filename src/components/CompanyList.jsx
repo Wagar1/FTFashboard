@@ -116,7 +116,9 @@ const CompanyList = () => {
               &#129144;
             </button>
           </span>
-          <h1>List of companies</h1>
+          <h1>
+            List of companies {window.userName ? <>({window.userName})</> : ""}
+          </h1>
         </div>
         <div className="col-6">
           <div className="float-end">
