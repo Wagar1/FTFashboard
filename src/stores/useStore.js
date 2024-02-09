@@ -19,15 +19,15 @@ const handleGetRequests = async (set, get) => {
     let requestUrl =
       window.mainUrl +
       `/api/v1/nodes/${window.wrURLs.getAssignedRequests}/output?format=json`;
-    if (currentRole === "USER") {
-      requestUrl += `&userId=${window.currentUserId}&isUser=true`;
-    } else if (currentRole === "MANAGER") {
+    if (currentRole === "MANAGER") {
       requestUrl += `&userId=${window.currentUserId}&isManager=true`;
     } else if (currentRole === "KIM") {
       //const kimID = get().kimID;
       requestUrl += `&userId=${226811570}&isKIM=true`;
+    } else {
+      requestUrl += `&userId=${window.currentUserId}&isUser=true`;
     }
-    const response = await fetch(requestUrl, requestOptions);
+    let response = await fetch(requestUrl, requestOptions);
 
     const json = await response.json();
     const data = JSON.parse(json.data);
