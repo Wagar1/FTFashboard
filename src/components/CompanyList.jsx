@@ -16,7 +16,7 @@ const getState = (state) => [
 ];
 
 let columns = (navigateToLanding, isApprover, loading, cId) => {
-  if (isApprover)
+  if (isApprover && !window.isInUserGroup)
     return [
       {
         name: "Company name",
